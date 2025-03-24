@@ -93,7 +93,11 @@ export class MemStorage implements IStorage {
 
   async createCourse(insertCourse: InsertCourse): Promise<Course> {
     const id = this.courseCurrentId++;
-    const course: Course = { ...insertCourse, id };
+    const course: Course = { 
+      ...insertCourse, 
+      id,
+      isPopular: insertCourse.isPopular ?? false
+    };
     this.courses.set(id, course);
     return course;
   }

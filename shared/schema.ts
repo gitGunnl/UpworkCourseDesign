@@ -12,11 +12,11 @@ export const courses = pgTable("courses", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
-  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  price: text("price").notNull(),
   imageUrl: text("image_url").notNull(),
   duration: text("duration").notNull(),
   level: text("level").notNull(),
-  rating: decimal("rating", { precision: 3, scale: 1 }).notNull(),
+  rating: text("rating").notNull(),
   ratingCount: integer("rating_count").notNull(),
   isPopular: boolean("is_popular").default(false),
 });

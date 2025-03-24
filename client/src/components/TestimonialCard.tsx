@@ -19,13 +19,13 @@ const TestimonialCard = ({
     <Card className="overflow-hidden">
       <CardContent className="p-6">
         <div className="flex mb-4">
-          {[...Array(Math.floor(rating))].map((_, i) => (
-            <span key={i} className="material-icons text-orange-500">
+          {[...Array(Math.floor(Number(rating)))].map((_, i) => (
+            <span key={i} className="material-icons text-yellow-500">
               star
             </span>
           ))}
-          {rating % 1 !== 0 && (
-            <span className="material-icons text-orange-500">star_half</span>
+          {Number(rating) % 1 !== 0 && (
+            <span className="material-icons text-yellow-500">star_half</span>
           )}
         </div>
         <p className="text-gray-500 mb-6">{text}</p>
