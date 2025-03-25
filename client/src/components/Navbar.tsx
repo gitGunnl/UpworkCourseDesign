@@ -1,103 +1,156 @@
+
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { useAuth } from "@/context/AuthContext";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
-  const [location] = useLocation();
+  const { isLoggedIn, setLoginStatus } = useAuth();
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+  const handleLogout = () => {
+    setLoginStatus(false);
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 left-0 right-0 z-50">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="material-icons text-primary-600">school</span>
-          <Link href="/" className="text-primary-600 font-bold text-xl">
-            LearnHub
+    <nav className="bg-white shadow-sm">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between h-16 items-center">
+          <Link href="/" className="text-xl font-bold text-primary-600">
+            Course Platform
           </Link>
-        </div>
 
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/"
-            className="text-gray-600 hover:text-primary-600 transition-colors"
-          >
-            Courses
-          </Link>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-primary-600 transition-colors"
-          >
-            Contact
-          </a>
-        </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/courses"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  All Courses
+                </Link>
+                <Link
+                  href="/my-courses"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  My Courses
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  Contact
+                </Link>
+                <span className="text-gray-600">John Doe</span>
+                <Button
+                  variant="ghost"
+                  onClick={handleLogout}
+                  className="text-gray-600 hover:text-primary-600"
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/courses"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  Courses
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  Contact
+                </Link>
+              </>
+            )}
+          </div>
 
-        <div className="flex items-center gap-3">
-          {!isLoggedIn ? (
-            <div className="flex items-center gap-3">
-              <Button
-                variant="outline"
-                size="sm"
-                asChild
-                className="border-primary-600 text-primary-600 hover:bg-primary-50"
-              >
-                <Link href="/auth">Log in</Link>
-              </Button>
-              <Button size="sm" asChild>
-                <Link href="/auth">Sign up</Link>
-              </Button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600">Welcome, User</span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={logout}
-                className="border-primary-600 text-primary-600 hover:bg-primary-50"
-              >
-                Log out
-              </Button>
-              <Link href="/panel" className="text-primary-600">
-                <span className="material-icons">account_circle</span>
-              </Link>
-            </div>
-          )}
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden"
-            onClick={toggleMobileMenu}
-            aria-label="Toggle mobile menu"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            <span className="material-icons">menu</span>
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {mobileMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
-      </div>
 
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white pb-4 px-4">
-          <div className="flex flex-col gap-2">
-            <Link
-              href="/"
-              className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Courses
-            </Link>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
-            >
-              Contact
-            </a>
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-4">
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/courses"
+                  className="block text-gray-600 hover:text-primary-600 py-2 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  All Courses
+                </Link>
+                <Link
+                  href="/my-courses"
+                  className="block text-gray-600 hover:text-primary-600 py-2 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  My Courses
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block text-gray-600 hover:text-primary-600 py-2 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+                <span className="block text-gray-600 py-2">John Doe</span>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left text-gray-600 hover:text-primary-600 py-2"
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/courses"
+                  className="block text-gray-600 hover:text-primary-600 py-2 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Courses
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block text-gray-600 hover:text-primary-600 py-2 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </>
+            )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 };
