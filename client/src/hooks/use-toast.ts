@@ -189,30 +189,3 @@ function useToast() {
 }
 
 export { useToast, toast }
-import { useState } from "react";
-
-interface ToastOptions {
-  title: string;
-  description?: string;
-  duration?: number;
-}
-
-export const useToast = () => {
-  const [toasts, setToasts] = useState<ToastOptions[]>([]);
-
-  const toast = (options: ToastOptions) => {
-    const id = Date.now();
-    const newToast = { ...options, id };
-    setToasts((prev) => [...prev, newToast]);
-
-    if (options.duration !== Infinity) {
-      setTimeout(() => {
-        setToasts((prev) => prev.filter((t) => t.id !== id));
-      }, options.duration || 3000);
-    }
-
-    return id;
-  };
-
-  return { toast, toasts };
-};
