@@ -33,18 +33,6 @@ const Navbar = () => {
             href="#"
             className="text-gray-600 hover:text-primary-600 transition-colors"
           >
-            About
-          </a>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-primary-600 transition-colors"
-          >
-            Pricing
-          </a>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-primary-600 transition-colors"
-          >
             Contact
           </a>
         </div>
@@ -101,18 +89,6 @@ const Navbar = () => {
             >
               Courses
             </Link>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
-            >
-              About
-            </a>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
-            >
-              Pricing
-            </a>
             <a
               href="#"
               className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
