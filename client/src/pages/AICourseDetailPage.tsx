@@ -27,6 +27,18 @@ const AICourseDetailPage = () => {
       navigate("/auth");
     }
   };
+  
+  const handleStartLearning = () => {
+    if (isLoggedIn) {
+      navigate("/course/ai/learn");
+    } else {
+      toast({
+        title: "Login Required",
+        description: "Please log in to access course content.",
+      });
+      navigate("/auth");
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -70,6 +82,15 @@ const AICourseDetailPage = () => {
             </Button>
             <Button variant="outline" size="lg">
               Preview Course
+            </Button>
+            <Button 
+              variant="default" 
+              size="lg"
+              className="bg-green-600 hover:bg-green-700"
+              onClick={handleStartLearning}
+            >
+              <span className="material-icons mr-2">play_circle</span>
+              Start Learning
             </Button>
           </div>
         </div>
@@ -206,9 +227,19 @@ const AICourseDetailPage = () => {
                   <span>Certificate of completion</span>
                 </div>
               </div>
-              <div className="mb-6">
+              <div className="mb-3">
                 <Button className="w-full" size="lg" onClick={handleEnroll}>
                   Enroll Now
+                </Button>
+              </div>
+              <div className="mb-6">
+                <Button 
+                  className="w-full bg-green-600 hover:bg-green-700" 
+                  size="lg" 
+                  onClick={handleStartLearning}
+                >
+                  <span className="material-icons mr-2">play_circle</span>
+                  Start Learning
                 </Button>
               </div>
               <p className="text-sm text-center text-gray-500">

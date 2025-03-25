@@ -8,6 +8,7 @@ import AuthPage from "@/pages/AuthPage";
 import DummyPanelPage from "@/pages/DummyPanelPage";
 import ControlPanelPage from "@/pages/ControlPanelPage";
 import AICourseDetailPage from "@/pages/AICourseDetailPage";
+import CourseLearningPage from "@/pages/CourseLearningPage";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
@@ -23,6 +24,7 @@ function Router() {
           <Route path="/panel" component={DummyPanelPage} />
           <Route path="/control" component={ControlPanelPage} />
           <Route path="/course/ai" component={AICourseDetailPage} />
+          <Route path="/course/ai/learn" component={CourseLearningPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
