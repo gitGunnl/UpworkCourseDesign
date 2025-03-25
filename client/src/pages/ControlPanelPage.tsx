@@ -44,6 +44,11 @@ const ControlPanelPage = () => {
       path: "/panel", 
       description: "Original test panel for login state."
     },
+    { 
+      name: "AI Course Detail", 
+      path: "/course/ai", 
+      description: "Detailed view of the AI course with enrollment options."
+    },
   ];
 
   return (
@@ -109,8 +114,8 @@ const ControlPanelPage = () => {
       </div>
 
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">View States</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <h2 className="text-2xl font-bold mb-4">Landing Page View States</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <Card className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <h3 className="font-bold text-lg mb-2">Logged In View</h3>
@@ -149,6 +154,51 @@ const ControlPanelPage = () => {
                 }}
               >
                 View Logged Out State
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+        
+        <h2 className="text-2xl font-bold mb-4">AI Course View States</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <h3 className="font-bold text-lg mb-2">AI Course (Logged In)</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Shows the AI course page with "Enroll Now" buttons that open a payment modal.
+              </p>
+              <Button
+                onClick={() => {
+                  setLoginStatus(true);
+                  navigate("/course/ai");
+                  toast({
+                    title: "Logged In",
+                    description: "Navigating to AI course page (logged in view).",
+                  });
+                }}
+              >
+                View AI Course (Logged In)
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <h3 className="font-bold text-lg mb-2">AI Course (Logged Out)</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Shows the AI course page with "Enroll Now" buttons that redirect to login page.
+              </p>
+              <Button
+                onClick={() => {
+                  setLoginStatus(false);
+                  navigate("/course/ai");
+                  toast({
+                    title: "Logged Out",
+                    description: "Navigating to AI course page (logged out view).",
+                  });
+                }}
+              >
+                View AI Course (Logged Out)
               </Button>
             </CardContent>
           </Card>
