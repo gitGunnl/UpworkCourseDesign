@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useIsLoggedIn } from "@/state/auth";
+import { useIsLoggedIn } from "@/context/AuthContext";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,7 +51,7 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          
+
           <div className="hidden md:flex md:items-center md:space-x-6">
             {isLoggedIn ? (
               <>
@@ -117,7 +116,7 @@ const Navbar = () => {
               </>
             )}
           </div>
-          
+
           <div className="flex items-center md:hidden">
             <button
               type="button"
