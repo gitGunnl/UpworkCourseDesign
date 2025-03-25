@@ -29,14 +29,6 @@ const Navbar = () => {
           >
             Courses
           </Link>
-          {isLoggedIn && (
-            <Link
-              href="/my-courses"
-              className="text-gray-600 hover:text-primary-600 transition-colors"
-            >
-              My Courses
-            </Link>
-          )}
           <a
             href="#"
             className="text-gray-600 hover:text-primary-600 transition-colors"
@@ -97,15 +89,6 @@ const Navbar = () => {
             >
               Courses
             </Link>
-            {isLoggedIn && (
-              <Link
-                href="/my-courses"
-                className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                My Courses
-              </Link>
-            )}
             <a
               href="#"
               className="text-gray-600 hover:text-primary-600 py-2 transition-colors"
