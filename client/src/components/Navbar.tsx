@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -64,6 +63,12 @@ const Navbar = () => {
                   className="text-gray-600 hover:text-primary-600 transition-colors"
                 >
                   Contact
+                </Link>
+                <Link
+                  href="/auth"
+                  className="text-white bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-md transition-colors"
+                >
+                  Login / Register
                 </Link>
               </>
             )}
@@ -145,6 +150,13 @@ const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Contact
+                </Link>
+                <Link
+                  href="/auth"
+                  className="block text-white bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-md transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Login / Register
                 </Link>
               </>
             )}
