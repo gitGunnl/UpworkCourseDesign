@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
 import AuthPage from "@/pages/AuthPage";
 import DummyPanelPage from "@/pages/DummyPanelPage";
+import ControlPanelPage from "@/pages/ControlPanelPage";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
@@ -19,6 +20,7 @@ function Router() {
           <Route path="/" component={HomePage} />
           <Route path="/auth" component={AuthPage} />
           <Route path="/panel" component={DummyPanelPage} />
+          <Route path="/control" component={ControlPanelPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

@@ -29,6 +29,12 @@ const Navbar = () => {
           >
             Courses
           </Link>
+          <Link
+            href="/control"
+            className="text-gray-600 hover:text-primary-600 transition-colors bg-gray-100 px-3 py-1 rounded-md"
+          >
+            Control Panel
+          </Link>
           <a
             href="#"
             className="text-gray-600 hover:text-primary-600 transition-colors"
@@ -100,6 +106,13 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Courses
+            </Link>
+            <Link
+              href="/control"
+              className="text-gray-600 hover:text-primary-600 py-2 transition-colors bg-gray-100 px-3 py-1 rounded-md my-1"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Control Panel
             </Link>
             <a
               href="#"
