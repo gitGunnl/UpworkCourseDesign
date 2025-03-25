@@ -66,7 +66,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   href="/auth"
-                  className="text-white bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-md transition-colors"
+                  className="text-primary-600 border-2 border-primary-600 hover:bg-primary-600 hover:text-white px-4 py-2 rounded-md transition-colors"
                 >
                   Login / Register
                 </Link>
@@ -153,7 +153,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   href="/auth"
-                  className="block text-white bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-md transition-colors"
+                  className="block text-primary-600 border-2 border-primary-600 hover:bg-primary-600 hover:text-white px-4 py-2 rounded-md transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Login / Register
