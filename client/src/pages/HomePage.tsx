@@ -143,53 +143,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Categories Section */}
-      <div className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4">
-          <div className="mb-10 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Explore by Category
-            </h2>
-            <p className="text-gray-600">
-              Find the perfect course in your area of interest
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categories.map((category, index) => (
-              <CategoryCard
-                key={index}
-                icon={category.icon}
-                title={category.title}
-                courseCount={category.courseCount}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Testimonials */}
-      <div className="py-16 container mx-auto px-4">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            What Our Students Say
-          </h2>
-          <p className="text-gray-600">Join thousands of satisfied learners</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard
-              key={index}
-              rating={testimonial.rating}
-              text={testimonial.text}
-              name={testimonial.name}
-              role={testimonial.role}
-              avatar={testimonial.avatar}
-            />
-          ))}
-        </div>
-      </div>
+      
 
       {/* CTA Section */}
       <div className="bg-primary-600 py-16">
