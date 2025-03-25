@@ -18,7 +18,7 @@ export const courses = pgTable("courses", {
   level: text("level").notNull(),
   rating: text("rating").notNull(),
   ratingCount: integer("rating_count").notNull(),
-  isPopular: boolean("is_popular").default(false),
+  isPopular: boolean("is_popular").notNull().default(false),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
