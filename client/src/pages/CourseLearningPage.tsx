@@ -3,7 +3,6 @@ import { useLocation, Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
@@ -338,132 +337,6 @@ const courseModules = [
   },
 ];
 
-// Course resources
-const courseResources = [
-  { title: "AI Fundamentals Cheat Sheet", type: "PDF", size: "1.2 MB" },
-  { title: "Neural Networks Diagrams", type: "ZIP", size: "4.5 MB" },
-  { title: "Python Code Samples", type: "ZIP", size: "2.8 MB" },
-  { title: "Machine Learning Algorithms Overview", type: "PDF", size: "3.1 MB" },
-  { title: "Deep Learning Framework Comparison", type: "PDF", size: "1.7 MB" },
-];
-
-// Additional information content
-const discussionContent = (
-  <div className="space-y-4">
-    <div className="border rounded-md p-4">
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">JD</div>
-        <div className="flex-1">
-          <div className="flex justify-between">
-            <h4 className="font-medium">John Doe</h4>
-            <span className="text-sm text-gray-500">2 days ago</span>
-          </div>
-          <p className="text-sm my-2">
-            I'm having trouble understanding backpropagation. Can someone explain how the chain rule is applied here?
-          </p>
-          <div className="flex gap-4 text-sm">
-            <button className="text-gray-500 hover:text-gray-700 flex items-center gap-1">
-              <span className="material-icons text-sm">thumb_up</span> 3
-            </button>
-            <button className="text-gray-500 hover:text-gray-700">Reply</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div className="border rounded-md p-4 ml-8">
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">AS</div>
-        <div className="flex-1">
-          <div className="flex justify-between">
-            <h4 className="font-medium">Alice Smith</h4>
-            <span className="text-sm text-gray-500">1 day ago</span>
-          </div>
-          <p className="text-sm my-2">
-            Backpropagation uses the chain rule to calculate how each weight in the network contributes to the overall error. It works backwards from the output, calculating gradients at each layer.
-          </p>
-          <div className="flex gap-4 text-sm">
-            <button className="text-gray-500 hover:text-gray-700 flex items-center gap-1">
-              <span className="material-icons text-sm">thumb_up</span> 5
-            </button>
-            <button className="text-gray-500 hover:text-gray-700">Reply</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div className="border rounded-md p-4">
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">MP</div>
-        <div className="flex-1">
-          <div className="flex justify-between">
-            <h4 className="font-medium">Mike Peterson</h4>
-            <span className="text-sm text-gray-500">12 hours ago</span>
-          </div>
-          <p className="text-sm my-2">
-            Is anyone working on the neural network project from Module 3? I'd love to collaborate or compare approaches.
-          </p>
-          <div className="flex gap-4 text-sm">
-            <button className="text-gray-500 hover:text-gray-700 flex items-center gap-1">
-              <span className="material-icons text-sm">thumb_up</span> 2
-            </button>
-            <button className="text-gray-500 hover:text-gray-700">Reply</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div className="mt-4">
-      <textarea 
-        className="w-full p-3 border rounded-md" 
-        rows={3} 
-        placeholder="Add to the discussion..."
-      ></textarea>
-      <Button className="mt-2">Post Comment</Button>
-    </div>
-  </div>
-);
-
-const notesContent = (
-  <div className="space-y-4">
-    <div className="border rounded-md p-4">
-      <h4 className="font-medium mb-2">Neural Networks - Key Points</h4>
-      <p className="text-sm text-gray-700">
-        • Inspired by biological neural networks<br />
-        • Composed of layers: input, hidden, and output<br />
-        • Each neuron applies weights, bias, and activation function<br />
-        • Training involves adjusting weights to minimize error<br />
-        • Common activation functions: ReLU, Sigmoid, Tanh
-      </p>
-      <div className="flex justify-end mt-2">
-        <span className="text-xs text-gray-500">Edited 3 days ago</span>
-      </div>
-    </div>
-    
-    <div className="border rounded-md p-4">
-      <h4 className="font-medium mb-2">Machine Learning Types</h4>
-      <p className="text-sm text-gray-700">
-        • Supervised: Training with labeled data<br />
-        • Unsupervised: Finding patterns in unlabeled data<br />
-        • Reinforcement: Learning through trial and error with rewards<br />
-        • Semi-supervised: Mix of labeled and unlabeled data
-      </p>
-      <div className="flex justify-end mt-2">
-        <span className="text-xs text-gray-500">Edited 1 week ago</span>
-      </div>
-    </div>
-    
-    <div className="mt-4">
-      <textarea 
-        className="w-full p-3 border rounded-md" 
-        rows={3} 
-        placeholder="Add a new note..."
-      ></textarea>
-      <Button className="mt-2">Save Note</Button>
-    </div>
-  </div>
-);
-
 const CourseLearningPage = () => {
   const { isLoggedIn } = useAuth();
   const [, navigate] = useLocation();
@@ -747,52 +620,6 @@ const CourseLearningPage = () => {
                   <span className="material-icons ml-1">arrow_forward</span>
                 </Button>
               </div>
-            </CardContent>
-          </Card>
-          
-          {/* Additional Content Tabs */}
-          <Card>
-            <CardContent className="p-6">
-              <Tabs defaultValue="resources">
-                <TabsList className="mb-4">
-                  <TabsTrigger value="resources">Resources</TabsTrigger>
-                  <TabsTrigger value="discussion">Discussion</TabsTrigger>
-                  <TabsTrigger value="notes">Notes</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="resources">
-                  <div>
-                    <h3 className="text-lg font-medium mb-4">Lesson Resources</h3>
-                    <div className="space-y-3">
-                      {courseResources.map((resource, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 border rounded-md">
-                          <div className="flex items-center gap-3">
-                            <span className="material-icons text-gray-500">
-                              {resource.type === "PDF" ? "picture_as_pdf" : "folder_zip"}
-                            </span>
-                            <div>
-                              <h4 className="font-medium">{resource.title}</h4>
-                              <p className="text-xs text-gray-500">{resource.type} • {resource.size}</p>
-                            </div>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            <span className="material-icons text-sm mr-1">download</span>
-                            Download
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="discussion">
-                  {discussionContent}
-                </TabsContent>
-                
-                <TabsContent value="notes">
-                  {notesContent}
-                </TabsContent>
-              </Tabs>
             </CardContent>
           </Card>
         </div>
