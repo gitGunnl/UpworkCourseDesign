@@ -13,65 +13,327 @@ const courseModules = [
     id: 1,
     title: "Introduction to AI",
     lessons: [
-      { id: 1, title: "What is Artificial Intelligence?", duration: "12:30", completed: true },
-      { id: 2, title: "History of AI Development", duration: "18:45", completed: true },
-      { id: 3, title: "Types of AI Systems", duration: "15:20", completed: false },
-      { id: 4, title: "Current AI Landscape", duration: "14:15", completed: false },
+      { 
+        id: 1, 
+        title: "What is Artificial Intelligence?", 
+        duration: "10 min read", 
+        completed: true,
+        hasVideo: true,
+        videoPosition: "top",
+        hasImages: true 
+      },
+      { 
+        id: 2, 
+        title: "History of AI Development", 
+        duration: "15 min read", 
+        completed: true,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 3, 
+        title: "Types of AI Systems", 
+        duration: "12 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true  
+      },
+      { 
+        id: 4, 
+        title: "Current AI Landscape", 
+        duration: "8 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: false 
+      },
     ],
   },
   {
     id: 2,
     title: "Machine Learning Basics",
     lessons: [
-      { id: 5, title: "Introduction to Machine Learning", duration: "21:10", completed: false },
-      { id: 6, title: "Supervised Learning", duration: "24:30", completed: false },
-      { id: 7, title: "Unsupervised Learning", duration: "19:45", completed: false },
-      { id: 8, title: "Semi-supervised Learning", duration: "16:20", completed: false },
-      { id: 9, title: "Reinforcement Learning", duration: "22:15", completed: false },
-      { id: 10, title: "Evaluation Metrics", duration: "17:40", completed: false },
+      { 
+        id: 5, 
+        title: "Introduction to Machine Learning", 
+        duration: "20 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "top",
+        hasImages: true 
+      },
+      { 
+        id: 6, 
+        title: "Supervised Learning", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 7, 
+        title: "Unsupervised Learning", 
+        duration: "15 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 8, 
+        title: "Semi-supervised Learning", 
+        duration: "12 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 9, 
+        title: "Reinforcement Learning", 
+        duration: "17 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "bottom",
+        hasImages: true 
+      },
+      { 
+        id: 10, 
+        title: "Evaluation Metrics", 
+        duration: "14 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
     ],
   },
   {
     id: 3,
     title: "Neural Networks",
     lessons: [
-      { id: 11, title: "Introduction to Neural Networks", duration: "20:15", completed: false },
-      { id: 12, title: "Perceptrons and Activation Functions", duration: "25:30", completed: false },
-      { id: 13, title: "Backpropagation Algorithm", duration: "28:45", completed: false },
-      { id: 14, title: "Training Neural Networks", duration: "23:20", completed: false },
-      { id: 15, title: "Convolutional Neural Networks", duration: "26:10", completed: false },
-      { id: 16, title: "Recurrent Neural Networks", duration: "24:35", completed: false },
-      { id: 17, title: "LSTM and GRU", duration: "22:50", completed: false },
-      { id: 18, title: "Neural Network Architectures", duration: "19:15", completed: false },
+      { 
+        id: 11, 
+        title: "Introduction to Neural Networks", 
+        duration: "15 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "bottom",
+        hasImages: true 
+      },
+      { 
+        id: 12, 
+        title: "Perceptrons and Activation Functions", 
+        duration: "20 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 13, 
+        title: "Backpropagation Algorithm", 
+        duration: "25 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: true
+      },
+      { 
+        id: 14, 
+        title: "Training Neural Networks", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 15, 
+        title: "Convolutional Neural Networks", 
+        duration: "22 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "top",
+        hasImages: true 
+      },
+      { 
+        id: 16, 
+        title: "Recurrent Neural Networks", 
+        duration: "20 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 17, 
+        title: "LSTM and GRU", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 18, 
+        title: "Neural Network Architectures", 
+        duration: "15 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: true 
+      },
     ],
   },
   {
     id: 4,
     title: "Deep Learning",
     lessons: [
-      { id: 19, title: "Introduction to Deep Learning", duration: "18:40", completed: false },
-      { id: 20, title: "Deep Neural Networks", duration: "27:15", completed: false },
-      { id: 21, title: "Training Deep Networks", duration: "25:30", completed: false },
-      { id: 22, title: "Regularization Techniques", duration: "20:45", completed: false },
-      { id: 23, title: "Optimization Algorithms", duration: "23:20", completed: false },
-      { id: 24, title: "Transfer Learning", duration: "19:10", completed: false },
-      { id: 25, title: "GANs - Generative Adversarial Networks", duration: "28:35", completed: false },
-      { id: 26, title: "Autoencoders", duration: "21:50", completed: false },
-      { id: 27, title: "Implementing Deep Learning Models", duration: "32:15", completed: false },
-      { id: 28, title: "Deep Learning Applications", duration: "24:40", completed: false },
+      { 
+        id: 19, 
+        title: "Introduction to Deep Learning", 
+        duration: "14 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "top",
+        hasImages: false 
+      },
+      { 
+        id: 20, 
+        title: "Deep Neural Networks", 
+        duration: "25 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 21, 
+        title: "Training Deep Networks", 
+        duration: "22 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 22, 
+        title: "Regularization Techniques", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 23, 
+        title: "Optimization Algorithms", 
+        duration: "20 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 24, 
+        title: "Transfer Learning", 
+        duration: "15 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "bottom",
+        hasImages: true 
+      },
+      { 
+        id: 25, 
+        title: "GANs - Generative Adversarial Networks", 
+        duration: "25 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: true 
+      },
+      { 
+        id: 26, 
+        title: "Autoencoders", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 27, 
+        title: "Implementing Deep Learning Models", 
+        duration: "30 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: true 
+      },
+      { 
+        id: 28, 
+        title: "Deep Learning Applications", 
+        duration: "20 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "bottom",
+        hasImages: true 
+      },
     ],
   },
   {
     id: 5,
     title: "Natural Language Processing",
     lessons: [
-      { id: 29, title: "Introduction to NLP", duration: "16:20", completed: false },
-      { id: 30, title: "Text Preprocessing", duration: "19:45", completed: false },
-      { id: 31, title: "Word Embeddings", duration: "23:10", completed: false },
-      { id: 32, title: "Sentiment Analysis", duration: "21:35", completed: false },
-      { id: 33, title: "Named Entity Recognition", duration: "18:50", completed: false },
-      { id: 34, title: "Machine Translation", duration: "24:15", completed: false },
-      { id: 35, title: "Transformer Models and BERT", duration: "29:40", completed: false },
+      { 
+        id: 29, 
+        title: "Introduction to NLP", 
+        duration: "12 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "top",
+        hasImages: false 
+      },
+      { 
+        id: 30, 
+        title: "Text Preprocessing", 
+        duration: "15 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 31, 
+        title: "Word Embeddings", 
+        duration: "20 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 32, 
+        title: "Sentiment Analysis", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: true 
+      },
+      { 
+        id: 33, 
+        title: "Named Entity Recognition", 
+        duration: "15 min read", 
+        completed: false,
+        hasVideo: false,
+        hasImages: true 
+      },
+      { 
+        id: 34, 
+        title: "Machine Translation", 
+        duration: "18 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "middle",
+        hasImages: true 
+      },
+      { 
+        id: 35, 
+        title: "Transformer Models and BERT", 
+        duration: "25 min read", 
+        completed: false,
+        hasVideo: true,
+        videoPosition: "bottom",
+        hasImages: true 
+      },
     ],
   },
 ];
@@ -272,11 +534,9 @@ const CourseLearningPage = () => {
       {/* Course Header */}
       <div className="mb-6">
         <div className="flex items-center gap-4 mb-4">
-          <Link href="/course/ai">
-            <a className="text-primary-600 hover:text-primary-700 flex items-center gap-1">
-              <span className="material-icons text-sm">arrow_back</span>
-              <span>Back to Course</span>
-            </a>
+          <Link href="/course/ai" className="text-primary-600 hover:text-primary-700 flex items-center gap-1">
+            <span className="material-icons text-sm">arrow_back</span>
+            <span>Back to Course</span>
           </Link>
           <h1 className="text-2xl font-bold">Mastering Artificial Intelligence</h1>
         </div>
@@ -359,23 +619,40 @@ const CourseLearningPage = () => {
                 </div>
               </div>
               
-              {/* Video player placeholder */}
-              <div className="aspect-video bg-gray-900 rounded-lg mb-6 flex items-center justify-center">
-                <div className="text-white text-center">
-                  <span className="material-icons text-6xl mb-2">smart_display</span>
-                  <p>Video Player</p>
-                  <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
-                </div>
-              </div>
-              
-              {/* Lesson content */}
+              {/* Lesson content with conditional video placement */}
               <div className="prose max-w-none mb-6">
+                {/* Top video placement */}
+                {currentLesson?.hasVideo && currentLesson.videoPosition === "top" && (
+                  <div className="aspect-video bg-gray-900 rounded-lg mb-6 flex items-center justify-center">
+                    <div className="text-white text-center">
+                      <span className="material-icons text-6xl mb-2">smart_display</span>
+                      <p>Video: {currentLesson.title}</p>
+                      <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
+                    </div>
+                  </div>
+                )}
+
                 <h3>Lesson Overview</h3>
                 <p>
                   In this lesson, we explore the fundamental concepts behind {currentLesson?.title}. 
                   This is a critical topic in the field of artificial intelligence that forms the foundation 
                   for many advanced techniques and applications.
                 </p>
+                
+                {/* Image example 1 - conditional based on lesson */}
+                {currentLesson?.hasImages && (
+                  <div className="my-4 border rounded-md overflow-hidden">
+                    <div className="bg-gray-100 aspect-video flex items-center justify-center">
+                      <div className="text-center text-gray-500">
+                        <span className="material-icons text-4xl mb-2">image</span>
+                        <p className="text-sm">Diagram: {currentLesson.title} Conceptual Overview</p>
+                      </div>
+                    </div>
+                    <div className="p-2 text-xs text-center text-gray-500">
+                      Figure 1: Conceptual overview of {currentLesson.title}
+                    </div>
+                  </div>
+                )}
                 
                 <h3>Key Concepts</h3>
                 <ul>
@@ -384,6 +661,17 @@ const CourseLearningPage = () => {
                   <li>Common challenges and solutions</li>
                   <li>Real-world applications and case studies</li>
                 </ul>
+                
+                {/* Middle video placement */}
+                {currentLesson?.hasVideo && currentLesson.videoPosition === "middle" && (
+                  <div className="aspect-video bg-gray-900 rounded-lg my-6 flex items-center justify-center">
+                    <div className="text-white text-center">
+                      <span className="material-icons text-6xl mb-2">smart_display</span>
+                      <p>Video Demonstration: {currentLesson.title}</p>
+                      <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
+                    </div>
+                  </div>
+                )}
                 
                 <h3>Practical Applications</h3>
                 <p>
@@ -396,6 +684,21 @@ const CourseLearningPage = () => {
                   <li>Natural language understanding</li>
                 </ul>
                 
+                {/* Image example 2 - conditional based on lesson */}
+                {currentLesson?.hasImages && (
+                  <div className="my-4 border rounded-md overflow-hidden">
+                    <div className="bg-gray-100 aspect-[4/3] flex items-center justify-center">
+                      <div className="text-center text-gray-500">
+                        <span className="material-icons text-4xl mb-2">bar_chart</span>
+                        <p className="text-sm">Chart: Performance Metrics for {currentLesson.title}</p>
+                      </div>
+                    </div>
+                    <div className="p-2 text-xs text-center text-gray-500">
+                      Figure 2: Example performance metrics for different approaches
+                    </div>
+                  </div>
+                )}
+                
                 <div className="bg-gray-50 p-4 rounded-md border-l-4 border-primary-500 my-4">
                   <h4 className="font-bold">Important Note</h4>
                   <p className="text-sm">
@@ -403,11 +706,40 @@ const CourseLearningPage = () => {
                     to reinforce your understanding of these concepts.
                   </p>
                 </div>
+                
+                {/* Bottom video placement */}
+                {currentLesson?.hasVideo && currentLesson.videoPosition === "bottom" && (
+                  <div className="aspect-video bg-gray-900 rounded-lg mt-6 flex items-center justify-center">
+                    <div className="text-white text-center">
+                      <span className="material-icons text-6xl mb-2">smart_display</span>
+                      <p>Advanced Video: {currentLesson.title} In Practice</p>
+                      <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
+                    </div>
+                  </div>
+                )}
               </div>
               
               {/* Next/Complete buttons */}
               <div className="flex justify-between">
-                <Button variant="outline" disabled={activeLessonId === 1}>
+                <Button 
+                  variant="outline" 
+                  disabled={activeLessonId === 1 && activeModuleId === 1}
+                  onClick={() => {
+                    const currentLessonIndex = currentModule?.lessons.findIndex(l => l.id === activeLessonId) || 0;
+                    if (currentLessonIndex > 0) {
+                      // Previous lesson in same module
+                      setActiveLessonId(currentModule?.lessons[currentLessonIndex - 1].id || 1);
+                    } else {
+                      // Go to previous module's last lesson
+                      const currentModuleIndex = courseModules.findIndex(m => m.id === activeModuleId);
+                      if (currentModuleIndex > 0) {
+                        const prevModule = courseModules[currentModuleIndex - 1];
+                        setActiveModuleId(prevModule.id);
+                        setActiveLessonId(prevModule.lessons[prevModule.lessons.length - 1].id);
+                      }
+                    }
+                  }}
+                >
                   <span className="material-icons mr-1">arrow_back</span> Previous
                 </Button>
                 <Button onClick={markAsCompleted}>
