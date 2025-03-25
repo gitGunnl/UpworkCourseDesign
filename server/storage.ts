@@ -1,4 +1,4 @@
-import { users, type User, type InsertUser, courses, type Course, type InsertCourse } from "@shared/schema";
+import { users, type User, type InsertUser, courses, type Course, type InsertCourse, enrollments, type Enrollment, type InsertEnrollment } from "@shared/schema";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -7,19 +7,26 @@ export interface IStorage {
   getCourses(): Promise<Course[]>;
   getCourse(id: number): Promise<Course | undefined>;
   createCourse(course: InsertCourse): Promise<Course>;
+  getEnrollments(userId: number): Promise<Course[]>;
+  createEnrollment(enrollment: InsertEnrollment): Promise<Enrollment>;
+  isEnrolled(userId: number, courseId: number): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private courses: Map<number, Course>;
+  private enrollments: Map<number, Enrollment>;
   private userCurrentId: number;
   private courseCurrentId: number;
+  private enrollmentCurrentId: number;
 
   constructor() {
     this.users = new Map();
     this.courses = new Map();
+    this.enrollments = new Map();
     this.userCurrentId = 1;
     this.courseCurrentId = 1;
+    this.enrollmentCurrentId = 1;
 
     // Initialize with some sample courses
     const sampleCourses: Course[] = [
@@ -100,6 +107,35 @@ export class MemStorage implements IStorage {
     };
     this.courses.set(id, course);
     return course;
+  }
+
+  async getEnrollments(userId: number): Promise<Course[]> {
+    const userEnrollments = Array.from(this.enrollments.values()).filter(
+      enrollment => enrollment.userId === userId
+    );
+    
+    const enrolledCourses: Course[] = [];
+    for (const enrollment of userEnrollments) {
+      const course = this.courses.get(enrollment.courseId);
+      if (course) {
+        enrolledCourses.push(course);
+      }
+    }
+    
+    return enrolledCourses;
+  }
+
+  async createEnrollment(enrollment: InsertEnrollment): Promise<Enrollment> {
+    const id = this.enrollmentCurrentId++;
+    const newEnrollment: Enrollment = { ...enrollment, id };
+    this.enrollments.set(id, newEnrollment);
+    return newEnrollment;
+  }
+
+  async isEnrolled(userId: number, courseId: number): Promise<boolean> {
+    return Array.from(this.enrollments.values()).some(
+      enrollment => enrollment.userId === userId && enrollment.courseId === courseId
+    );
   }
 }
 
