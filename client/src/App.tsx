@@ -45,28 +45,3 @@ function App() {
 }
 
 export default App;
-import { Route, Switch } from "wouter";
-import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "@/context/AuthContext";
-import Navbar from "@/components/Navbar";
-import HomePage from "@/pages/HomePage";
-import AuthPage from "@/pages/AuthPage";
-import DummyPanelPage from "@/pages/DummyPanelPage";
-import MyCoursesPage from "@/pages/MyCoursesPage";
-
-function App() {
-  return (
-    <AuthProvider>
-      <Navbar />
-      <Switch>
-        <Route path="/" component={HomePage} />
-        <Route path="/auth" component={AuthPage} />
-        <Route path="/panel" component={DummyPanelPage} />
-        <Route path="/my-courses" component={MyCoursesPage} />
-      </Switch>
-      <Toaster />
-    </AuthProvider>
-  );
-}
-
-export default App;
