@@ -212,16 +212,15 @@ const CourseLearningPage = () => {
   const [progress, setProgress] = useState(8); // 8% initial progress (2 out of 35 lessons completed)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
-  // Ensure user is logged in
+  // For demo purposes, we'll allow access even when not logged in
   useEffect(() => {
     if (!isLoggedIn) {
       toast({
-        title: "Access Denied",
-        description: "Please log in to access the course content.",
+        title: "Demo Mode",
+        description: "You're viewing the course in demo mode.",
       });
-      navigate("/auth");
     }
-  }, [isLoggedIn, navigate, toast]);
+  }, [isLoggedIn, toast]);
   
   // Get current lesson details
   const currentModule = courseModules.find(module => module.id === activeModuleId);

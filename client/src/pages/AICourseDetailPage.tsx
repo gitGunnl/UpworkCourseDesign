@@ -29,15 +29,7 @@ const AICourseDetailPage = () => {
   };
   
   const handleStartLearning = () => {
-    if (isLoggedIn) {
-      navigate("/course/ai/learn");
-    } else {
-      toast({
-        title: "Login Required",
-        description: "Please log in to access course content.",
-      });
-      navigate("/auth");
-    }
+    navigate("/course/ai/learn");
   };
 
   return (
