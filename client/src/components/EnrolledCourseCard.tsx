@@ -1,27 +1,13 @@
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/context/AuthContext";
-import { useLocation } from "wouter";
 import { Course } from "@shared/schema";
 
-interface CourseCardProps {
+interface EnrolledCourseCardProps {
   course: Course;
-  onEnroll: (courseId: number) => void;
+  onContinue: (courseId: number) => void;
 }
 
-const CourseCard = ({ course, onEnroll }: CourseCardProps) => {
-  const { isLoggedIn } = useAuth();
-  const [, navigate] = useLocation();
-
-  const handleEnrollClick = () => {
-    if (isLoggedIn) {
-      onEnroll(course.id);
-    } else {
-      navigate("/auth");
-    }
-  };
-
+const EnrolledCourseCard = ({ course, onContinue }: EnrolledCourseCardProps) => {
   return (
     <Card className="overflow-hidden transition-all duration-200 hover:shadow-lg">
       <div className="aspect-video bg-gray-200 relative">
@@ -73,13 +59,13 @@ const CourseCard = ({ course, onEnroll }: CourseCardProps) => {
         </div>
         <Button
           className="w-full mt-4"
-          onClick={handleEnrollClick}
+          onClick={() => onContinue(course.id)}
         >
-          Enroll Now
+          Continue Course
         </Button>
       </CardContent>
     </Card>
   );
 };
 
-export default CourseCard;
+export default EnrolledCourseCard;

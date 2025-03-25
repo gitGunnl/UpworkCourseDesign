@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { Course } from "@shared/schema";
-import CourseCard from "@/components/CourseCard";
+import EnrolledCourseCard from "@/components/EnrolledCourseCard";
 import { useAuth } from "@/context/AuthContext";
 
 const MyCoursesPage = () => {
@@ -102,10 +102,10 @@ const MyCoursesPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Use either real data or dummy data */}
           {(enrolledCourses?.length ? enrolledCourses : dummyEnrolledCourses).map((course) => (
-            <CourseCard 
-              key={course.id} 
+            <EnrolledCourseCard 
+              key={course.id}
               course={course} 
-              onEnroll={() => handleContinue(course.id)} 
+              onContinue={() => handleContinue(course.id)} 
             />
           ))}
         </div>
