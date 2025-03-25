@@ -31,3 +31,27 @@ export function Toaster() {
     </ToastProvider>
   )
 }
+import * as React from "react";
+import { useToast } from "@/hooks/use-toast";
+
+export function Toaster() {
+  const { toasts } = useToast();
+
+  return (
+    <div className="fixed top-0 right-0 flex flex-col p-4 gap-2 z-50 max-w-[420px]">
+      {toasts.map((toast) => (
+        <div
+          key={toast.id}
+          className="bg-white rounded-lg border shadow-lg overflow-hidden"
+        >
+          <div className="p-4">
+            <div className="font-semibold">{toast.title}</div>
+            {toast.description && (
+              <div className="text-sm text-gray-500 mt-1">{toast.description}</div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

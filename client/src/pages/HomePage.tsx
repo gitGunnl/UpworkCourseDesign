@@ -223,3 +223,67 @@ const HomePage = () => {
 };
 
 export default HomePage;
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
+
+const HomePage = () => {
+  const { isLoggedIn } = useAuth();
+  const [, navigate] = useLocation();
+
+  const handleEnrollClick = () => {
+    if (isLoggedIn) {
+      navigate("/course/ai");
+    } else {
+      navigate("/auth");
+    }
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-16">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to LearnHub</h1>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          Discover our courses and enhance your skills in various domains.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="bg-blue-500 h-48 flex items-center justify-center">
+            <span className="text-white text-5xl font-bold">AI</span>
+          </div>
+          <div className="p-6">
+            <h3 className="font-bold text-xl mb-2">Artificial Intelligence</h3>
+            <p className="text-gray-600 mb-4">Learn the fundamentals of AI and machine learning.</p>
+            <Button onClick={handleEnrollClick} className="w-full">Enroll Now</Button>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="bg-green-500 h-48 flex items-center justify-center">
+            <span className="text-white text-5xl font-bold">Web</span>
+          </div>
+          <div className="p-6">
+            <h3 className="font-bold text-xl mb-2">Web Development</h3>
+            <p className="text-gray-600 mb-4">Master modern web technologies and frameworks.</p>
+            <Button onClick={handleEnrollClick} className="w-full">Enroll Now</Button>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="bg-purple-500 h-48 flex items-center justify-center">
+            <span className="text-white text-5xl font-bold">Data</span>
+          </div>
+          <div className="p-6">
+            <h3 className="font-bold text-xl mb-2">Data Science</h3>
+            <p className="text-gray-600 mb-4">Analyze and visualize data to derive insights.</p>
+            <Button onClick={handleEnrollClick} className="w-full">Enroll Now</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;
