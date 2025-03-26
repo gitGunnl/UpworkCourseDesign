@@ -563,9 +563,6 @@ const CourseLearningPage = () => {
         <div 
           className="transition-all duration-300"
         >
-          <div className="bg-red-200 p-2 mb-2">
-            Sidebar is {isSidebarOpen ? 'OPEN' : 'CLOSED'} - Content should be visible
-          </div>
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
