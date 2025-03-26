@@ -570,7 +570,7 @@ const CourseLearningPage = () => {
           >
             {isSidebarOpen ? 'Hide Menu' : ''}
           </span>
-        </button>n>
+        </button>
 
         {/* Main Content Area */}
         <div 
