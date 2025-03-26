@@ -453,8 +453,10 @@ const CourseLearningPage = () => {
             top-0 bottom-0 left-0 right-0 
             bg-black/20 lg:bg-transparent
             lg:transition-all lg:duration-300
-            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0'}
           `}
+          style={{ 
+            gridColumn: isSidebarOpen ? 'span 1 / span 1' : '0 / 0'
+          }}
           onClick={(e) => {
             // Close sidebar when clicking overlay (mobile only)
             if (window.innerWidth < 1024 && e.target === e.currentTarget) {
@@ -532,10 +534,7 @@ const CourseLearningPage = () => {
         {/* Sidebar toggle button */}
         <button 
           onClick={() => {
-            console.log('Toggling sidebar. Current state:', isSidebarOpen);
             setIsSidebarOpen(!isSidebarOpen);
-            // Log after state update (will show next render state)
-            setTimeout(() => console.log('New sidebar state:', !isSidebarOpen), 0);
           }}
           className={`
             fixed lg:absolute 
@@ -559,18 +558,12 @@ const CourseLearningPage = () => {
 
         {/* Main Content Area */}
         <div 
-          className="lg:col-span-3 transition-all duration-300" 
-          style={{gridColumn: isSidebarOpen ? 'span 3 / span 3' : '1 / -1'}}
-          onClick={() => {
-            console.log('Main content area clicked');
-            console.log('isSidebarOpen:', isSidebarOpen);
-            console.log('gridColumn style:', isSidebarOpen ? 'span 3 / span 3' : '1 / -1');
-            console.log('Computed style:', window.getComputedStyle(document.querySelector('.lg\\:col-span-3') as HTMLElement).gridColumn);
+          className="transition-all duration-300" 
+          style={{
+            gridColumn: isSidebarOpen ? '2 / -1' : '1 / -1',
+            display: 'block' // Ensure content is always displayed
           }}
         >
-          <div className="bg-red-200 p-2 mb-2">
-            Sidebar is {isSidebarOpen ? 'OPEN' : 'CLOSED'} - Content should be visible
-          </div>
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
