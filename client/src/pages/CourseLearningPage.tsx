@@ -442,21 +442,19 @@ const CourseLearningPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative min-h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
         {/* Sidebar - Course Navigation */}
         <div 
           className={`
             ${isSidebarOpen ? 'block' : 'hidden'} 
             lg:block
-            fixed lg:relative 
+            fixed lg:static 
             z-20 
             top-0 bottom-0 left-0 right-0 
             bg-black/20 lg:bg-transparent
             lg:transition-all lg:duration-300
+            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0'}
           `}
-          style={{
-            gridColumn: isSidebarOpen ? 'span 1' : '0 / span 0'
-          }}
           onClick={(e) => {
             // Close sidebar when clicking overlay (mobile only)
             if (window.innerWidth < 1024 && e.target === e.currentTarget) {
@@ -561,10 +559,13 @@ const CourseLearningPage = () => {
 
         {/* Main Content Area */}
         <div 
-          className="transition-all duration-300"
-          style={{
-            gridColumn: isSidebarOpen ? '2 / -1' : '1 / -1',
-            position: 'relative'
+          className="lg:col-span-3 transition-all duration-300" 
+          style={{gridColumn: isSidebarOpen ? 'span 3 / span 3' : '1 / -1'}}
+          onClick={() => {
+            console.log('Main content area clicked');
+            console.log('isSidebarOpen:', isSidebarOpen);
+            console.log('gridColumn style:', isSidebarOpen ? 'span 3 / span 3' : '1 / -1');
+            console.log('Computed style:', window.getComputedStyle(document.querySelector('.lg\\:col-span-3') as HTMLElement).gridColumn);
           }}
         >
           <div className="bg-red-200 p-2 mb-2">
