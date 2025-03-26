@@ -442,18 +442,17 @@ const CourseLearningPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
+      <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-6 relative">
         {/* Sidebar - Course Navigation */}
         <div 
           className={`
             ${isSidebarOpen ? 'block' : 'hidden'} 
-            lg:block
-            fixed lg:static 
+            fixed lg:relative 
             z-20 
             top-0 bottom-0 left-0 right-0 
             bg-black/20 lg:bg-transparent
-            lg:transition-all lg:duration-300
-            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0'}
+            transition-all duration-300
+            ${!isSidebarOpen && 'lg:hidden'}
           `}
           onClick={(e) => {
             // Close sidebar when clicking overlay (mobile only)
@@ -470,7 +469,7 @@ const CourseLearningPage = () => {
             lg:sticky lg:top-24 
             border rounded-lg overflow-hidden shadow-sm
             transition-transform duration-300
-            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           `}>
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="font-bold">Course Content</h2>
@@ -559,14 +558,7 @@ const CourseLearningPage = () => {
 
         {/* Main Content Area */}
         <div 
-          className="lg:col-span-3 transition-all duration-300" 
-          style={{gridColumn: isSidebarOpen ? 'span 3 / span 3' : '1 / -1'}}
-          onClick={() => {
-            console.log('Main content area clicked');
-            console.log('isSidebarOpen:', isSidebarOpen);
-            console.log('gridColumn style:', isSidebarOpen ? 'span 3 / span 3' : '1 / -1');
-            console.log('Computed style:', window.getComputedStyle(document.querySelector('.lg\\:col-span-3') as HTMLElement).gridColumn);
-          }}
+          className="transition-all duration-300"
         >
           <div className="bg-red-200 p-2 mb-2">
             Sidebar is {isSidebarOpen ? 'OPEN' : 'CLOSED'} - Content should be visible
