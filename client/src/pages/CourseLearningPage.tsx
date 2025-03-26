@@ -537,21 +537,25 @@ const CourseLearningPage = () => {
           }}
           className={`
             fixed lg:absolute 
-            bottom-6 lg:bottom-auto
+            bottom-6 lg:top-4
             left-6 lg:left-0
             z-10 
-            bg-primary-600 lg:bg-primary-100 
-            text-white lg:text-primary-600
-            p-3 lg:p-2
-            rounded-full lg:rounded-r-full lg:rounded-l-none
+            bg-primary-600 hover:bg-primary-700 
+            text-white 
+            p-3 lg:p-2.5
+            rounded-full lg:rounded-r-md lg:rounded-l-none
             shadow-lg
-            transition-all
-            ${isSidebarOpen ? 'lg:translate-x-full' : ''}
+            transition-all duration-200 ease-in-out
+            flex items-center gap-2
+            ${isSidebarOpen ? 'lg:translate-x-[244px]' : ''}
           `}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
         >
-          <span className="material-icons">
+          <span className="material-icons text-sm">
             {isSidebarOpen ? 'chevron_left' : 'menu'}
+          </span>
+          <span className={`hidden lg:inline-block whitespace-nowrap text-xs font-medium transition-opacity duration-200 ${isSidebarOpen ? 'opacity-100' : 'opacity-0'}`}>
+            {isSidebarOpen ? 'Hide Menu' : ''}
           </span>
         </button>
 
