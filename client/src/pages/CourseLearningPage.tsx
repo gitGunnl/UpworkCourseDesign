@@ -347,6 +347,29 @@ const CourseLearningPage = () => {
   const [progress, setProgress] = useState(8); // 8% initial progress (2 out of 35 lessons completed)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
+  // Check for screen size to set initial sidebar state
+  useEffect(() => {
+    const handleResize = () => {
+      // On narrow screens, default to closed sidebar
+      if (window.innerWidth < 1024) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
+      }
+    };
+    
+    // Set initial state
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   // For demo purposes, we'll allow access even when not logged in
   useEffect(() => {
     if (!isLoggedIn) {
@@ -419,15 +442,42 @@ const CourseLearningPage = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
         {/* Sidebar - Course Navigation */}
-        <div className={`lg:col-span-1 ${isSidebarOpen ? 'block' : 'hidden lg:block'}`}>
-          <div className="lg:sticky lg:top-24 bg-white border rounded-lg overflow-hidden shadow-sm">
+        <div 
+          className={`
+            ${isSidebarOpen ? 'block' : 'hidden'} 
+            lg:block
+            fixed lg:static 
+            z-20 
+            top-0 bottom-0 left-0 right-0 
+            bg-black/20 lg:bg-transparent
+            lg:transition-all lg:duration-300
+            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0 lg:opacity-0'}
+          `}
+          onClick={(e) => {
+            // Close sidebar when clicking overlay (mobile only)
+            if (window.innerWidth < 1024 && e.target === e.currentTarget) {
+              setIsSidebarOpen(false);
+            }
+          }}
+        >
+          <div className={`
+            h-full lg:h-auto
+            max-w-xs w-4/5 lg:w-full lg:max-w-none
+            ml-auto lg:ml-0
+            bg-white 
+            lg:sticky lg:top-24 
+            border rounded-lg overflow-hidden shadow-sm
+            transition-transform duration-300
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          `}>
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="font-bold">Course Content</h2>
               <button 
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="lg:hidden text-gray-500 hover:text-gray-700"
+                onClick={() => setIsSidebarOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+                aria-label="Close sidebar"
               >
                 <span className="material-icons">close</span>
               </button>
@@ -454,7 +504,13 @@ const CourseLearningPage = () => {
                           className={`p-2 text-sm rounded-md cursor-pointer flex items-center gap-2
                             ${activeLessonId === lesson.id ? 'bg-primary-50 text-primary-700' : 'hover:bg-gray-50'}
                           `}
-                          onClick={() => setActiveLessonId(lesson.id)}
+                          onClick={() => {
+                            setActiveLessonId(lesson.id);
+                            // Close sidebar on mobile when a lesson is selected
+                            if (window.innerWidth < 1024) {
+                              setIsSidebarOpen(false);
+                            }
+                          }}
                         >
                           {lesson.completed ? (
                             <span className="material-icons text-green-500 text-sm">check_circle</span>
@@ -473,16 +529,35 @@ const CourseLearningPage = () => {
           </div>
         </div>
         
-        {/* Mobile Toggle Button */}
+        {/* Toggle Sidebar Button */}
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className={`lg:hidden fixed bottom-6 left-6 z-10 bg-primary-600 text-white p-3 rounded-full shadow-lg ${isSidebarOpen ? 'hidden' : 'flex'}`}
+          className={`
+            fixed lg:absolute 
+            bottom-6 lg:bottom-auto
+            left-6 lg:left-0
+            z-10 
+            bg-primary-600 lg:bg-primary-100 
+            text-white lg:text-primary-600
+            p-3 lg:p-2
+            rounded-full lg:rounded-r-full lg:rounded-l-none
+            shadow-lg
+            transition-all
+            ${isSidebarOpen ? 'lg:translate-x-full' : ''}
+          `}
+          aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
         >
-          <span className="material-icons">menu</span>
+          <span className="material-icons">
+            {isSidebarOpen ? 'chevron_left' : 'menu'}
+          </span>
         </button>
         
         {/* Main Content Area */}
-        <div className="lg:col-span-3">
+        <div className={`
+          lg:col-span-3
+          transition-all duration-300
+          ${isSidebarOpen ? '' : 'lg:col-span-4'}
+        `}>
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
