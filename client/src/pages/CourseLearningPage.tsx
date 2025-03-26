@@ -442,7 +442,7 @@ const CourseLearningPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-6 relative">
+      <div className={`grid grid-cols-1 ${isSidebarOpen ? 'lg:grid-cols-[250px_1fr]' : 'lg:grid-cols-1'} gap-6 relative`}>
         {/* Sidebar - Course Navigation */}
         <div 
           className={`
@@ -452,7 +452,6 @@ const CourseLearningPage = () => {
             top-0 bottom-0 left-0 right-0 
             bg-black/20 lg:bg-transparent
             transition-all duration-300
-            ${!isSidebarOpen && 'lg:hidden'}
           `}
           onClick={(e) => {
             // Close sidebar when clicking overlay (mobile only)
