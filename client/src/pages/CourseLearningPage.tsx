@@ -341,12 +341,12 @@ const CourseLearningPage = () => {
   const { isLoggedIn } = useAuth();
   const [, navigate] = useLocation();
   const { toast } = useToast();
-  
+
   const [activeModuleId, setActiveModuleId] = useState(1);
   const [activeLessonId, setActiveLessonId] = useState(1);
   const [progress, setProgress] = useState(8); // 8% initial progress (2 out of 35 lessons completed)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  
+
   // Check for screen size to set initial sidebar state
   useEffect(() => {
     const handleResize = () => {
@@ -357,19 +357,19 @@ const CourseLearningPage = () => {
         setIsSidebarOpen(true);
       }
     };
-    
+
     // Set initial state
     handleResize();
-    
+
     // Add event listener
     window.addEventListener('resize', handleResize);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  
+
   // For demo purposes, we'll allow access even when not logged in
   useEffect(() => {
     if (!isLoggedIn) {
@@ -379,36 +379,36 @@ const CourseLearningPage = () => {
       });
     }
   }, [isLoggedIn, toast]);
-  
+
   // Get current lesson details
   const currentModule = courseModules.find(module => module.id === activeModuleId);
   const currentLesson = currentModule?.lessons.find(lesson => lesson.id === activeLessonId);
-  
+
   // Calculate total completed lessons
   const totalLessons = courseModules.reduce((total, module) => total + module.lessons.length, 0);
   const completedLessons = courseModules.reduce((total, module) => 
     total + module.lessons.filter(lesson => lesson.completed).length, 0);
-  
+
   // Mark lesson as completed
   const markAsCompleted = () => {
     // In a real app, this would send a request to the server
     const newModules = [...courseModules];
     const moduleIndex = newModules.findIndex(module => module.id === activeModuleId);
     const lessonIndex = newModules[moduleIndex].lessons.findIndex(lesson => lesson.id === activeLessonId);
-    
+
     if (!newModules[moduleIndex].lessons[lessonIndex].completed) {
       newModules[moduleIndex].lessons[lessonIndex].completed = true;
       // Update progress percentage
       const newCompletedLessons = completedLessons + 1;
       const newProgress = Math.round((newCompletedLessons / totalLessons) * 100);
       setProgress(newProgress);
-      
+
       toast({
         title: "Progress Updated",
         description: "Lesson marked as completed!",
       });
     }
-    
+
     // Move to next lesson if available
     const currentLessonIndex = currentModule?.lessons.findIndex(l => l.id === activeLessonId) || 0;
     if (currentModule && currentLessonIndex < currentModule.lessons.length - 1) {
@@ -424,7 +424,7 @@ const CourseLearningPage = () => {
       }
     }
   };
-  
+
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Course Header */}
@@ -441,7 +441,7 @@ const CourseLearningPage = () => {
           <span className="text-sm font-medium">{progress}% complete</span>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
         {/* Sidebar - Course Navigation */}
         <div 
@@ -495,7 +495,7 @@ const CourseLearningPage = () => {
                       {module.lessons.filter(lesson => lesson.completed).length} completed
                     </p>
                   </div>
-                  
+
                   {activeModuleId === module.id && (
                     <div className="ml-4 mt-1 space-y-1">
                       {module.lessons.map(lesson => (
@@ -528,7 +528,7 @@ const CourseLearningPage = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Toggle Sidebar Button */}
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -551,13 +551,9 @@ const CourseLearningPage = () => {
             {isSidebarOpen ? 'chevron_left' : 'menu'}
           </span>
         </button>
-        
+
         {/* Main Content Area */}
-        <div className={`
-          lg:col-span-3
-          transition-all duration-300
-          ${isSidebarOpen ? '' : 'lg:col-span-4'}
-        `}>
+        <div className={`lg:col-span-3`}> {/* Removed conditional class for col-span */}
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
@@ -566,7 +562,7 @@ const CourseLearningPage = () => {
                   Duration: {currentLesson?.duration}
                 </div>
               </div>
-              
+
               {/* Lesson content with conditional video placement */}
               <div className="prose max-w-none mb-6">
                 {/* Top video placement */}
@@ -586,7 +582,7 @@ const CourseLearningPage = () => {
                   This is a critical topic in the field of artificial intelligence that forms the foundation 
                   for many advanced techniques and applications.
                 </p>
-                
+
                 {/* Image example 1 - conditional based on lesson */}
                 {currentLesson?.hasImages && (
                   <div className="my-4 border rounded-md overflow-hidden">
@@ -601,7 +597,7 @@ const CourseLearningPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 <h3>Key Concepts</h3>
                 <ul>
                   <li>Understanding the theoretical foundations</li>
@@ -609,7 +605,7 @@ const CourseLearningPage = () => {
                   <li>Common challenges and solutions</li>
                   <li>Real-world applications and case studies</li>
                 </ul>
-                
+
                 {/* Middle video placement */}
                 {currentLesson?.hasVideo && currentLesson.videoPosition === "middle" && (
                   <div className="aspect-video bg-gray-900 rounded-lg my-6 flex items-center justify-center">
@@ -620,7 +616,7 @@ const CourseLearningPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 <h3>Practical Applications</h3>
                 <p>
                   The concepts covered in this lesson are applied in various domains including:
@@ -631,7 +627,7 @@ const CourseLearningPage = () => {
                   <li>Autonomous vehicles</li>
                   <li>Natural language understanding</li>
                 </ul>
-                
+
                 {/* Image example 2 - conditional based on lesson */}
                 {currentLesson?.hasImages && (
                   <div className="my-4 border rounded-md overflow-hidden">
@@ -646,7 +642,7 @@ const CourseLearningPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 <div className="bg-gray-50 p-4 rounded-md border-l-4 border-primary-500 my-4">
                   <h4 className="font-bold">Important Note</h4>
                   <p className="text-sm">
@@ -654,7 +650,7 @@ const CourseLearningPage = () => {
                     to reinforce your understanding of these concepts.
                   </p>
                 </div>
-                
+
                 {/* Bottom video placement */}
                 {currentLesson?.hasVideo && currentLesson.videoPosition === "bottom" && (
                   <div className="aspect-video bg-gray-900 rounded-lg mt-6 flex items-center justify-center">
@@ -666,7 +662,7 @@ const CourseLearningPage = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Next/Complete buttons */}
               <div className="flex justify-between">
                 <Button 
