@@ -20,10 +20,10 @@ function Router() {
       <Navbar />
       <main className="flex-grow">
         <Switch>
-          <Route path="/" component={HomePage} />
+          <Route path="/" component={ControlPanelPage} />
+          <Route path="/landing" component={HomePage} />
           <Route path="/auth" component={AuthPage} />
           <Route path="/panel" component={DummyPanelPage} />
-          <Route path="/control" component={ControlPanelPage} />
           <Route path="/course/ai" component={AICourseDetailPage} />
           <Route path="/course/ai/learn" component={CourseLearningPage} />
           <Route path="/my-courses" component={MyCoursesPage} />

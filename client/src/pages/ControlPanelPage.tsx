@@ -31,7 +31,7 @@ const ControlPanelPage = () => {
   const pages = [
     { 
       name: "Landing Page", 
-      path: "/", 
+      path: "/landing", 
       description: "Main course listing page. Behavior changes based on login status."
     },
     { 
@@ -54,7 +54,7 @@ const ControlPanelPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Control Panel</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <Card>
           <CardContent className="p-6">
@@ -125,7 +125,7 @@ const ControlPanelPage = () => {
               <Button
                 onClick={() => {
                   setLoginStatus(true);
-                  navigate("/");
+                  navigate("/landing");
                   toast({
                     title: "Logged In",
                     description: "Navigating to logged-in landing page view.",
@@ -146,7 +146,7 @@ const ControlPanelPage = () => {
               <Button
                 onClick={() => {
                   setLoginStatus(false);
-                  navigate("/");
+                  navigate("/landing");
                   toast({
                     title: "Logged Out",
                     description: "Navigating to logged-out landing page view.",
@@ -158,7 +158,7 @@ const ControlPanelPage = () => {
             </CardContent>
           </Card>
         </div>
-        
+
         <h2 className="text-2xl font-bold mb-4">AI Course View States</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="hover:shadow-md transition-shadow">

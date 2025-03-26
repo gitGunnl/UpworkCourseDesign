@@ -29,7 +29,7 @@ const DummyPanelPage = () => {
         ? "You are now logged in. Enroll buttons will open payment modal." 
         : "You are now logged out. Enroll buttons will redirect to login page.",
     });
-    navigate("/");
+    navigate("/landing");
   };
 
   return (
