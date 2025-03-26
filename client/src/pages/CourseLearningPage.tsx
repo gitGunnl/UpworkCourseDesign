@@ -1,339 +1,42 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "wouter";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 
-// Mock course data (in a real app, this would come from an API)
+// Course data (would typically come from an API)
 const courseModules = [
   {
     id: 1,
-    title: "Introduction to AI",
+    title: "Module 1: AI Fundamentals",
     lessons: [
-      { 
-        id: 1, 
-        title: "What is Artificial Intelligence?", 
-        duration: "10 min read", 
-        completed: true,
-        hasVideo: true,
-        videoPosition: "top",
-        hasImages: true 
-      },
-      { 
-        id: 2, 
-        title: "History of AI Development", 
-        duration: "15 min read", 
-        completed: true,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 3, 
-        title: "Types of AI Systems", 
-        duration: "12 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true  
-      },
-      { 
-        id: 4, 
-        title: "Current AI Landscape", 
-        duration: "8 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: false 
-      },
-    ],
+      { id: 1, title: "Introduction to AI", duration: "15 min", completed: true },
+      { id: 2, title: "History of AI Development", duration: "22 min", completed: true },
+      { id: 3, title: "Types of AI Systems", duration: "18 min", completed: false },
+      { id: 4, title: "Ethical Considerations in AI", duration: "25 min", completed: false },
+    ]
   },
   {
     id: 2,
-    title: "Machine Learning Basics",
+    title: "Module 2: Machine Learning Basics",
     lessons: [
-      { 
-        id: 5, 
-        title: "Introduction to Machine Learning", 
-        duration: "20 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "top",
-        hasImages: true 
-      },
-      { 
-        id: 6, 
-        title: "Supervised Learning", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 7, 
-        title: "Unsupervised Learning", 
-        duration: "15 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 8, 
-        title: "Semi-supervised Learning", 
-        duration: "12 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 9, 
-        title: "Reinforcement Learning", 
-        duration: "17 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "bottom",
-        hasImages: true 
-      },
-      { 
-        id: 10, 
-        title: "Evaluation Metrics", 
-        duration: "14 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-    ],
+      { id: 5, title: "Introduction to Machine Learning", duration: "20 min", completed: false },
+      { id: 6, title: "Supervised Learning", duration: "28 min", completed: false },
+      { id: 7, title: "Unsupervised Learning", duration: "25 min", completed: false },
+      { id: 8, title: "Reinforcement Learning", duration: "30 min", completed: false },
+    ]
   },
   {
     id: 3,
-    title: "Neural Networks",
+    title: "Module 3: Neural Networks",
     lessons: [
-      { 
-        id: 11, 
-        title: "Introduction to Neural Networks", 
-        duration: "15 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "bottom",
-        hasImages: true 
-      },
-      { 
-        id: 12, 
-        title: "Perceptrons and Activation Functions", 
-        duration: "20 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 13, 
-        title: "Backpropagation Algorithm", 
-        duration: "25 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: true
-      },
-      { 
-        id: 14, 
-        title: "Training Neural Networks", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 15, 
-        title: "Convolutional Neural Networks", 
-        duration: "22 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "top",
-        hasImages: true 
-      },
-      { 
-        id: 16, 
-        title: "Recurrent Neural Networks", 
-        duration: "20 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 17, 
-        title: "LSTM and GRU", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 18, 
-        title: "Neural Network Architectures", 
-        duration: "15 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: true 
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "Deep Learning",
-    lessons: [
-      { 
-        id: 19, 
-        title: "Introduction to Deep Learning", 
-        duration: "14 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "top",
-        hasImages: false 
-      },
-      { 
-        id: 20, 
-        title: "Deep Neural Networks", 
-        duration: "25 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 21, 
-        title: "Training Deep Networks", 
-        duration: "22 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 22, 
-        title: "Regularization Techniques", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 23, 
-        title: "Optimization Algorithms", 
-        duration: "20 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 24, 
-        title: "Transfer Learning", 
-        duration: "15 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "bottom",
-        hasImages: true 
-      },
-      { 
-        id: 25, 
-        title: "GANs - Generative Adversarial Networks", 
-        duration: "25 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: true 
-      },
-      { 
-        id: 26, 
-        title: "Autoencoders", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 27, 
-        title: "Implementing Deep Learning Models", 
-        duration: "30 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: true 
-      },
-      { 
-        id: 28, 
-        title: "Deep Learning Applications", 
-        duration: "20 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "bottom",
-        hasImages: true 
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: "Natural Language Processing",
-    lessons: [
-      { 
-        id: 29, 
-        title: "Introduction to NLP", 
-        duration: "12 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "top",
-        hasImages: false 
-      },
-      { 
-        id: 30, 
-        title: "Text Preprocessing", 
-        duration: "15 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 31, 
-        title: "Word Embeddings", 
-        duration: "20 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 32, 
-        title: "Sentiment Analysis", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: true 
-      },
-      { 
-        id: 33, 
-        title: "Named Entity Recognition", 
-        duration: "15 min read", 
-        completed: false,
-        hasVideo: false,
-        hasImages: true 
-      },
-      { 
-        id: 34, 
-        title: "Machine Translation", 
-        duration: "18 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "middle",
-        hasImages: true 
-      },
-      { 
-        id: 35, 
-        title: "Transformer Models and BERT", 
-        duration: "25 min read", 
-        completed: false,
-        hasVideo: true,
-        videoPosition: "bottom",
-        hasImages: true 
-      },
-    ],
+      { id: 9, title: "Neuron and Perceptron Models", duration: "23 min", completed: false },
+      { id: 10, title: "Activation Functions", duration: "15 min", completed: false },
+      { id: 11, title: "Feedforward Neural Networks", duration: "28 min", completed: false },
+      { id: 12, title: "Backpropagation Algorithm", duration: "35 min", completed: false },
+    ]
   },
 ];
 
@@ -384,30 +87,37 @@ const CourseLearningPage = () => {
   const currentModule = courseModules.find(module => module.id === activeModuleId);
   const currentLesson = currentModule?.lessons.find(lesson => lesson.id === activeLessonId);
 
-  // Calculate total completed lessons
-  const totalLessons = courseModules.reduce((total, module) => total + module.lessons.length, 0);
-  const completedLessons = courseModules.reduce((total, module) => 
-    total + module.lessons.filter(lesson => lesson.completed).length, 0);
+  const handleComplete = () => {
+    // Mark current lesson as completed
+    const updatedModules = courseModules.map(module => {
+      if (module.id === activeModuleId) {
+        const updatedLessons = module.lessons.map(lesson => {
+          if (lesson.id === activeLessonId) {
+            return { ...lesson, completed: true };
+          }
+          return lesson;
+        });
+        return { ...module, lessons: updatedLessons };
+      }
+      return module;
+    });
 
-  // Mark lesson as completed
-  const markAsCompleted = () => {
-    // In a real app, this would send a request to the server
-    const newModules = [...courseModules];
-    const moduleIndex = newModules.findIndex(module => module.id === activeModuleId);
-    const lessonIndex = newModules[moduleIndex].lessons.findIndex(lesson => lesson.id === activeLessonId);
+    // Calculate new progress
+    const totalLessons = updatedModules.reduce((acc, module) => acc + module.lessons.length, 0);
+    const completedLessons = updatedModules.reduce(
+      (acc, module) => acc + module.lessons.filter(lesson => lesson.completed).length, 
+      0
+    );
+    const newProgress = Math.round((completedLessons / totalLessons) * 100);
 
-    if (!newModules[moduleIndex].lessons[lessonIndex].completed) {
-      newModules[moduleIndex].lessons[lessonIndex].completed = true;
-      // Update progress percentage
-      const newCompletedLessons = completedLessons + 1;
-      const newProgress = Math.round((newCompletedLessons / totalLessons) * 100);
-      setProgress(newProgress);
+    // Update state
+    setProgress(newProgress);
 
-      toast({
-        title: "Progress Updated",
-        description: "Lesson marked as completed!",
-      });
-    }
+    // Show success message
+    toast({
+      title: "Lesson Completed",
+      description: "Moving to next lesson...",
+    });
 
     // Move to next lesson if available
     const currentLessonIndex = currentModule?.lessons.findIndex(l => l.id === activeLessonId) || 0;
@@ -442,7 +152,27 @@ const CourseLearningPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
+      <div className="flex flex-col lg:flex-row gap-6 relative">
+        {/* Sidebar toggle button */}
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className={`
+            fixed lg:absolute 
+            top-28 z-30
+            ${isSidebarOpen ? 'left-[270px]' : 'left-4'} 
+            lg:left-0 lg:ml-2
+            p-2 rounded-full 
+            bg-white shadow 
+            hover:bg-gray-100
+            transition-all duration-300
+          `}
+          aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+        >
+          <span className="material-icons text-gray-700">
+            {isSidebarOpen ? 'chevron_left' : 'chevron_right'}
+          </span>
+        </button>
+
         {/* Sidebar - Course Navigation */}
         <div 
           className={`
@@ -452,9 +182,13 @@ const CourseLearningPage = () => {
             z-20 
             top-0 bottom-0 left-0 right-0 
             bg-black/20 lg:bg-transparent
-            lg:transition-all lg:duration-300
-            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0'}
+            transition-all duration-300
           `}
+          style={{
+            width: isSidebarOpen ? 'auto' : '0',
+            flex: isSidebarOpen ? '0 0 280px' : '0 0 0px',
+            overflow: 'hidden'
+          }}
           onClick={(e) => {
             // Close sidebar when clicking overlay (mobile only)
             if (window.innerWidth < 1024 && e.target === e.currentTarget) {
@@ -476,7 +210,7 @@ const CourseLearningPage = () => {
               <h2 className="font-bold">Course Content</h2>
               <button 
                 onClick={() => setIsSidebarOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 lg:hidden"
                 aria-label="Close sidebar"
               >
                 <span className="material-icons">close</span>
@@ -495,7 +229,6 @@ const CourseLearningPage = () => {
                       {module.lessons.filter(lesson => lesson.completed).length} completed
                     </p>
                   </div>
-
                   {activeModuleId === module.id && (
                     <div className="ml-4 mt-1 space-y-1">
                       {module.lessons.map(lesson => (
@@ -529,48 +262,10 @@ const CourseLearningPage = () => {
           </div>
         </div>
 
-        {/* Sidebar toggle button */}
-        <button 
-          onClick={() => {
-            console.log('Toggling sidebar. Current state:', isSidebarOpen);
-            setIsSidebarOpen(!isSidebarOpen);
-            // Log after state update (will show next render state)
-            setTimeout(() => console.log('New sidebar state:', !isSidebarOpen), 0);
-          }}
-          className={`
-            fixed lg:absolute 
-            bottom-6 lg:bottom-auto
-            left-6 lg:left-0
-            z-10 
-            bg-primary-600 lg:bg-primary-100 
-            text-white lg:text-primary-600
-            p-3 lg:p-2
-            rounded-full lg:rounded-r-full lg:rounded-l-none
-            shadow-lg
-            transition-all
-            ${isSidebarOpen ? 'lg:translate-x-full' : ''}
-          `}
-          aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
-        >
-          <span className="material-icons">
-            {isSidebarOpen ? 'chevron_left' : 'menu'}
-          </span>
-        </button>
-
         {/* Main Content Area */}
         <div 
-          className="lg:col-span-3 transition-all duration-300" 
-          style={{gridColumn: isSidebarOpen ? 'span 3 / span 3' : '1 / -1'}}
-          onClick={() => {
-            console.log('Main content area clicked');
-            console.log('isSidebarOpen:', isSidebarOpen);
-            console.log('gridColumn style:', isSidebarOpen ? 'span 3 / span 3' : '1 / -1');
-            console.log('Computed style:', window.getComputedStyle(document.querySelector('.lg\\:col-span-3') as HTMLElement).gridColumn);
-          }}
+          className="flex-1 transition-all duration-300"
         >
-          <div className="bg-red-200 p-2 mb-2">
-            Sidebar is {isSidebarOpen ? 'OPEN' : 'CLOSED'} - Content should be visible
-          </div>
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
@@ -580,136 +275,53 @@ const CourseLearningPage = () => {
                 </div>
               </div>
 
-              {/* Lesson content with conditional video placement */}
-              <div className="prose max-w-none mb-6">
-                {/* Top video placement */}
-                {currentLesson?.hasVideo && currentLesson.videoPosition === "top" && (
-                  <div className="aspect-video bg-gray-900 rounded-lg mb-6 flex items-center justify-center">
-                    <div className="text-white text-center">
-                      <span className="material-icons text-6xl mb-2">smart_display</span>
-                      <p>Video: {currentLesson.title}</p>
-                      <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
-                    </div>
-                  </div>
-                )}
+              <div className="aspect-video bg-gray-100 rounded-lg mb-6 flex items-center justify-center">
+                <div className="text-center">
+                  <span className="material-icons text-6xl text-gray-400">play_circle</span>
+                  <p className="text-gray-500 mt-2">Video Lesson</p>
+                </div>
+              </div>
 
+              <div className="prose max-w-none">
                 <h3>Lesson Overview</h3>
                 <p>
-                  In this lesson, we explore the fundamental concepts behind {currentLesson?.title}. 
-                  This is a critical topic in the field of artificial intelligence that forms the foundation 
-                  for many advanced techniques and applications.
+                  In this lesson, we will explore the fundamentals of artificial intelligence and its applications
+                  in modern technology. You will learn about the different approaches to AI and how they have
+                  evolved over time.
                 </p>
-
-                {/* Image example 1 - conditional based on lesson */}
-                {currentLesson?.hasImages && (
-                  <div className="my-4 border rounded-md overflow-hidden">
-                    <div className="bg-gray-100 aspect-video flex items-center justify-center">
-                      <div className="text-center text-gray-500">
-                        <span className="material-icons text-4xl mb-2">image</span>
-                        <p className="text-sm">Diagram: {currentLesson.title} Conceptual Overview</p>
-                      </div>
-                    </div>
-                    <div className="p-2 text-xs text-center text-gray-500">
-                      Figure 1: Conceptual overview of {currentLesson.title}
-                    </div>
-                  </div>
-                )}
 
                 <h3>Key Concepts</h3>
                 <ul>
-                  <li>Understanding the theoretical foundations</li>
-                  <li>Practical implementation approaches</li>
-                  <li>Common challenges and solutions</li>
-                  <li>Real-world applications and case studies</li>
+                  <li>Definition and scope of artificial intelligence</li>
+                  <li>Distinction between narrow AI and general AI</li>
+                  <li>Major milestones in the development of AI technology</li>
+                  <li>Current applications of AI in various industries</li>
                 </ul>
 
-                {/* Middle video placement */}
-                {currentLesson?.hasVideo && currentLesson.videoPosition === "middle" && (
-                  <div className="aspect-video bg-gray-900 rounded-lg my-6 flex items-center justify-center">
-                    <div className="text-white text-center">
-                      <span className="material-icons text-6xl mb-2">smart_display</span>
-                      <p>Video Demonstration: {currentLesson.title}</p>
-                      <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
-                    </div>
-                  </div>
-                )}
-
-                <h3>Practical Applications</h3>
+                <h3>Practice Exercise</h3>
                 <p>
-                  The concepts covered in this lesson are applied in various domains including:
+                  After watching the video, try to identify three examples of AI that you interact with in your
+                  daily life. For each example, consider:
                 </p>
-                <ul>
-                  <li>Healthcare diagnostics</li>
-                  <li>Financial forecasting</li>
-                  <li>Autonomous vehicles</li>
-                  <li>Natural language understanding</li>
-                </ul>
-
-                {/* Image example 2 - conditional based on lesson */}
-                {currentLesson?.hasImages && (
-                  <div className="my-4 border rounded-md overflow-hidden">
-                    <div className="bg-gray-100 aspect-[4/3] flex items-center justify-center">
-                      <div className="text-center text-gray-500">
-                        <span className="material-icons text-4xl mb-2">bar_chart</span>
-                        <p className="text-sm">Chart: Performance Metrics for {currentLesson.title}</p>
-                      </div>
-                    </div>
-                    <div className="p-2 text-xs text-center text-gray-500">
-                      Figure 2: Example performance metrics for different approaches
-                    </div>
-                  </div>
-                )}
-
-                <div className="bg-gray-50 p-4 rounded-md border-l-4 border-primary-500 my-4">
-                  <h4 className="font-bold">Important Note</h4>
-                  <p className="text-sm">
-                    Make sure to review the supplementary materials and complete the practice exercises 
-                    to reinforce your understanding of these concepts.
-                  </p>
-                </div>
-
-                {/* Bottom video placement */}
-                {currentLesson?.hasVideo && currentLesson.videoPosition === "bottom" && (
-                  <div className="aspect-video bg-gray-900 rounded-lg mt-6 flex items-center justify-center">
-                    <div className="text-white text-center">
-                      <span className="material-icons text-6xl mb-2">smart_display</span>
-                      <p>Advanced Video: {currentLesson.title} In Practice</p>
-                      <p className="text-sm text-gray-400 mt-1">In a real application, a video player would be embedded here</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Next/Complete buttons */}
-              <div className="flex justify-between">
-                <Button 
-                  variant="outline" 
-                  disabled={activeLessonId === 1 && activeModuleId === 1}
-                  onClick={() => {
-                    const currentLessonIndex = currentModule?.lessons.findIndex(l => l.id === activeLessonId) || 0;
-                    if (currentLessonIndex > 0) {
-                      // Previous lesson in same module
-                      setActiveLessonId(currentModule?.lessons[currentLessonIndex - 1].id || 1);
-                    } else {
-                      // Go to previous module's last lesson
-                      const currentModuleIndex = courseModules.findIndex(m => m.id === activeModuleId);
-                      if (currentModuleIndex > 0) {
-                        const prevModule = courseModules[currentModuleIndex - 1];
-                        setActiveModuleId(prevModule.id);
-                        setActiveLessonId(prevModule.lessons[prevModule.lessons.length - 1].id);
-                      }
-                    }
-                  }}
-                >
-                  <span className="material-icons mr-1">arrow_back</span> Previous
-                </Button>
-                <Button onClick={markAsCompleted}>
-                  {currentLesson?.completed ? 'Next Lesson' : 'Mark as Completed'}
-                  <span className="material-icons ml-1">arrow_forward</span>
-                </Button>
+                <ol>
+                  <li>What task is the AI performing?</li>
+                  <li>What type of AI approach is being used?</li>
+                  <li>How does it benefit users?</li>
+                </ol>
               </div>
             </CardContent>
           </Card>
+
+          <div className="flex justify-between items-center">
+            <Button variant="outline">
+              <span className="material-icons mr-2">arrow_back</span>
+              Previous Lesson
+            </Button>
+            <Button onClick={handleComplete}>
+              <span className="material-icons mr-2">check</span>
+              Complete & Continue
+            </Button>
+          </div>
         </div>
       </div>
     </div>
