@@ -530,34 +530,47 @@ const CourseLearningPage = () => {
         {/* Sidebar toggle button */}
         <button 
           onClick={() => {
-            console.log('Toggling sidebar. Current state:', isSidebarOpen);
             setIsSidebarOpen(!isSidebarOpen);
-            // Log after state update (will show next render state)
-            setTimeout(() => console.log('New sidebar state:', !isSidebarOpen), 0);
           }}
           className={`
             fixed lg:absolute 
             bottom-6 lg:top-4
             left-6 lg:left-0
             z-10 
-            bg-primary-600 hover:bg-primary-700 
-            text-white 
-            p-3 lg:p-2.5
+            bg-white lg:bg-white
+            text-gray-700
+            border border-gray-200
+            hover:bg-gray-50
+            active:bg-gray-100
+            p-2.5
             rounded-full lg:rounded-r-md lg:rounded-l-none
-            shadow-lg
-            transition-all duration-200 ease-in-out
-            flex items-center gap-2
-            ${isSidebarOpen ? 'lg:translate-x-[244px]' : ''}
+            shadow-md
+            transition-all duration-300 ease-in-out
+            flex items-center justify-center lg:justify-start gap-2
+            focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50
+            ${isSidebarOpen ? 'lg:translate-x-[250px]' : ''}
+            ${isSidebarOpen ? 'lg:w-[95px]' : 'lg:w-10'}
+            h-10
           `}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+          aria-expanded={isSidebarOpen}
+          aria-controls="course-sidebar"
         >
-          <span className="material-icons text-sm">
+          <span className="material-icons text-lg text-primary-600">
             {isSidebarOpen ? 'chevron_left' : 'menu'}
           </span>
-          <span className={`hidden lg:inline-block whitespace-nowrap text-xs font-medium transition-opacity duration-200 ${isSidebarOpen ? 'opacity-100' : 'opacity-0'}`}>
+          <span 
+            className={`
+              hidden lg:block 
+              text-sm font-medium 
+              whitespace-nowrap 
+              transition-all duration-300
+              ${isSidebarOpen ? 'opacity-100 max-w-20' : 'opacity-0 max-w-0 overflow-hidden'}
+            `}
+          >
             {isSidebarOpen ? 'Hide Menu' : ''}
           </span>
-        </button>
+        </button>n>
 
         {/* Main Content Area */}
         <div 
