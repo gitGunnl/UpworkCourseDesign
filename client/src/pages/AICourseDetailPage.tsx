@@ -149,41 +149,68 @@ const AICourseDetailPage = () => {
 
               <h2 className="text-2xl font-bold mb-4">Course Content</h2>
               <div className="space-y-3 mb-8">
-                <div className="p-3 bg-gray-50 rounded-md flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Module 1: Introduction to AI</h3>
-                    <p className="text-sm text-gray-500">4 lectures • 45 min</p>
-                  </div>
-                  <span className="material-icons">expand_more</span>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-md flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Module 2: Machine Learning Basics</h3>
-                    <p className="text-sm text-gray-500">6 lectures • 1h 20min</p>
-                  </div>
-                  <span className="material-icons">expand_more</span>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-md flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Module 3: Neural Networks</h3>
-                    <p className="text-sm text-gray-500">8 lectures • 2h 10min</p>
-                  </div>
-                  <span className="material-icons">expand_more</span>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-md flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Module 4: Deep Learning</h3>
-                    <p className="text-sm text-gray-500">10 lectures • 3h 30min</p>
-                  </div>
-                  <span className="material-icons">expand_more</span>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-md flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Module 5: Natural Language Processing</h3>
-                    <p className="text-sm text-gray-500">7 lectures • 2h 15min</p>
-                  </div>
-                  <span className="material-icons">expand_more</span>
-                </div>
+                {[
+                  {
+                    id: 1,
+                    title: "Module 1: Introduction to AI",
+                    info: "4 lectures • 45 min",
+                    lectures: ["AI History", "Key Concepts", "AI Ethics", "Modern Applications"]
+                  },
+                  {
+                    id: 2,
+                    title: "Module 2: Machine Learning Basics",
+                    info: "6 lectures • 1h 20min",
+                    lectures: ["Supervised Learning", "Unsupervised Learning", "Linear Regression", "Decision Trees", "K-Means Clustering", "Evaluation Metrics"]
+                  },
+                  {
+                    id: 3,
+                    title: "Module 3: Neural Networks",
+                    info: "8 lectures • 2h 10min",
+                    lectures: ["Perceptron", "Backpropagation", "Activation Functions", "Optimizers", "Regularization", "CNN Basics", "RNN Basics", "Transformer Basics"]
+                  },
+                  {
+                    id: 4,
+                    title: "Module 4: Deep Learning",
+                    info: "10 lectures • 3h 30min",
+                    lectures: ["Advanced CNN", "Advanced RNN", "LSTM", "GRU", "Transfer Learning", "GANs", "Autoencoders", "Diffusion Models", "Model Deployment", "Optimization Techniques"]
+                  },
+                  {
+                    id: 5,
+                    title: "Module 5: Natural Language Processing",
+                    info: "7 lectures • 2h 15min",
+                    lectures: ["Text Processing", "Word Embeddings", "Language Models", "Sequence-to-Sequence", "Attention Mechanisms", "BERT", "GPT Models"]
+                  }
+                ].map((module) => {
+                  const [isExpanded, setIsExpanded] = useState(false);
+                  return (
+                    <div key={module.id} className="rounded-md overflow-hidden">
+                      <div 
+                        className="p-3 bg-gray-50 flex justify-between items-center cursor-pointer hover:bg-gray-100"
+                        onClick={() => setIsExpanded(!isExpanded)}
+                      >
+                        <div>
+                          <h3 className="font-medium">{module.title}</h3>
+                          <p className="text-sm text-gray-500">{module.info}</p>
+                        </div>
+                        <span className="material-icons transition-transform duration-300" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                          expand_more
+                        </span>
+                      </div>
+                      {isExpanded && (
+                        <div className="p-3 border-t border-gray-200 bg-white">
+                          <ul className="space-y-2">
+                            {module.lectures.map((lecture, idx) => (
+                              <li key={idx} className="flex items-center gap-2">
+                                <span className="material-icons text-gray-400 text-sm">play_circle_outline</span>
+                                <span className="text-sm">{lecture}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
