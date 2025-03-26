@@ -453,7 +453,7 @@ const CourseLearningPage = () => {
             top-0 bottom-0 left-0 right-0 
             bg-black/20 lg:bg-transparent
             lg:transition-all lg:duration-300
-            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0 lg:opacity-0'}
+            ${isSidebarOpen ? 'lg:col-span-1' : 'lg:col-span-0 lg:w-0'}
           `}
           onClick={(e) => {
             // Close sidebar when clicking overlay (mobile only)
@@ -553,7 +553,7 @@ const CourseLearningPage = () => {
         </button>
 
         {/* Main Content Area */}
-        <div className={`${isSidebarOpen ? 'lg:col-span-3' : 'lg:col-span-4'} transition-all duration-300`}>
+        <div className="lg:col-span-3 transition-all duration-300" style={{gridColumn: isSidebarOpen ? 'span 3 / span 3' : '1 / -1'}}>
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
