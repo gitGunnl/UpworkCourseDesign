@@ -529,9 +529,8 @@ const CourseLearningPage = () => {
           </div>
         </div>
 
-        {/* Toggle Sidebar Button */}
+        {/* Sidebar toggle button */}
         <button 
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className={`
             fixed lg:absolute 
             bottom-6 lg:bottom-auto
@@ -545,6 +544,7 @@ const CourseLearningPage = () => {
             transition-all
             ${isSidebarOpen ? 'lg:translate-x-full' : ''}
           `}
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
         >
           <span className="material-icons">
@@ -553,7 +553,7 @@ const CourseLearningPage = () => {
         </button>
 
         {/* Main Content Area */}
-        <div className={`lg:col-span-3`}> {/* Removed conditional class for col-span */}
+        <div className={`${isSidebarOpen ? 'lg:col-span-3' : 'lg:col-span-4'} transition-all duration-300`}>
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
