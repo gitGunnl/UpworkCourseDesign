@@ -1,0 +1,63 @@
+Yes. The root cause is that the sidebar is taken out of the normal grid flow by being set to `fixed` on large screens, yet the parent container is still defined as a 4‑column grid (`lg:grid-cols-4`). Then, when you hide the sidebar and update the main content’s grid span to “take over” (with `gridColumn: '1 / -1'`), the combination of fixed‐positioned sidebar markup and that updated grid is causing the jump.
+
+In other words:
+
+- **The parent** is a grid with 4 columns.
+- **The sidebar** is in the first column, but uses `fixed` (on large screens) plus a bunch of overlay logic. This effectively removes it from normal grid flow, but the grid is still “expecting” that column to be part of the layout.
+- **The main content** tries to dynamically change from `lg:col-span-3` to spanning all columns (`gridColumn: '1 / -1'`) when the sidebar closes.
+
+That interplay of “fixed” + “grid column spanning” leads the browser to recalculate and sometimes push the main content downward when the sidebar toggles.
+
+---
+
+## The Quick Fix
+
+Keep the grid for large screens but **avoid using `fixed` for the sidebar on large screens**. Only use the “off-canvas” overlay approach (i.e., `fixed`, full-screen overlay, etc.) for small screens.
+
+One common pattern is:
+
+1. **For small screens** (mobile/tablet), you do the “off-canvas” approach:
+   - `position: fixed` on the sidebar
+   - an overlay behind it
+   - `hidden` or transforms for open/close
+
+2. **For large screens**, just let the sidebar be in the normal flow of the grid or flex:
+   - no fixed positioning
+   - no overlay
+   - always visible in its own column
+
+In Tailwind, you’d typically see something like:
+
+```tsx
+<div className="grid grid-cols-1 lg:grid-cols-[250px_1fr]">
+  {/* Sidebar - normal flow on lg */}
+  <aside
+    className={clsx(
+      "hidden lg:block border-r", // normal flow on lg
+      isSidebarOpen ? "block" : "hidden", // for small screens, toggled
+      "fixed top-0 left-0 w-64 h-full bg-white shadow-lg", // the off-canvas styles for mobile
+    )}
+  >
+    {/* Sidebar content */}
+  </aside>
+  
+  {/* Main content */}
+  <main className="p-6">
+    {/* Main content */}
+  </main>
+</div>
+```
+
+Here:
+- On **large screens**, the grid columns are `[250px, 1fr]`. The `<aside>` is simply `lg:block` in column 1, not fixed, not absolutely positioned—just a normal grid item.  
+- On **small screens**, that same `<aside>` becomes `fixed` + hidden/shown by toggling a class. The parent “knows” the sidebar is out of flow, so you do not need to rely on the grid for the small screen layout.
+
+---
+
+## Key Takeaways
+
+- **Avoid mixing “fixed” and “grid columns” for the same element** on large screens. It leads to confusion and janky transitions.
+- **Use normal grid/flex positioning on large screens** so that your main content doesn’t jump when the sidebar is hidden.
+- **Switch to an off-canvas approach** on mobile, where your sidebar is absolutely/fixed positioned.  
+
+By doing that, you can remove the style hacks (`style={{ gridColumn: … }}`) and the complicated toggling of “fixed vs. static” in the same element. This will eliminate the large vertical jump and give you a more stable layout.
