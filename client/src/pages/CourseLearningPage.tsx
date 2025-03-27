@@ -532,20 +532,19 @@ const CourseLearningPage = () => {
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className={`
             fixed 
-            top-20 left-4
-            lg:top-24 ${isSidebarOpen ? 'lg:left-[258px]' : 'lg:left-4'}
+            top-20 
+            ${isSidebarOpen ? 'left-[258px]' : 'left-4'}
             z-30
-            h-9 
-            flex items-center 
+            flex items-center justify-center
             bg-white
-            hover:bg-gray-50
             text-gray-700
+            hover:bg-gray-50
+            focus:ring-primary-400 focus:ring-opacity-50 focus:outline-none focus:ring-2
             border border-gray-200
-            rounded-md
             shadow-sm
             transition-all duration-200 ease-in-out
-            focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50
-            pr-3 pl-2.5 gap-2
+            rounded-md
+            ${isSidebarOpen ? 'w-9 h-9 p-2' : 'h-9 px-3 py-2 gap-2'}
           `}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
           aria-expanded={isSidebarOpen}
@@ -554,10 +553,10 @@ const CourseLearningPage = () => {
           <span className="material-icons text-lg">
             {isSidebarOpen ? 'chevron_left' : 'menu'}
           </span>
-          <span className={`text-sm font-medium ${!isSidebarOpen && 'hidden'}`}>
-            Hide Menu
-          </span>
-        </button>
+          {!isSidebarOpen && (
+            <span className="text-sm font-medium hidden md:inline-block">Menu</span>
+          )}
+        </button>n>
 
         {/* Main Content Area */}
         <div 
