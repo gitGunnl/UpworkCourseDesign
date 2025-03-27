@@ -532,25 +532,27 @@ const CourseLearningPage = () => {
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className={`
             fixed 
-            top-20 left-4
-            lg:top-24 lg:left-4
+            top-20 
+            ${isSidebarOpen ? 'left-[250px]' : 'left-0'}
             z-30
-            w-10 h-10
             flex items-center justify-center
-            bg-primary-600
-            hover:bg-primary-700
-            text-white
-            rounded-full
-            shadow-md
+            bg-white/80
+            text-gray-600
+            hover:bg-white hover:text-gray-900
+            focus:outline-none
+            border-y border-r
+            shadow-sm
+            backdrop-blur-sm
             transition-all duration-200
-            focus:outline-none focus:ring-2 focus:ring-primary-400
+            rounded-r-lg
+            w-8 h-24
           `}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
           aria-expanded={isSidebarOpen}
           aria-controls="course-sidebar"
         >
           <span className="material-icons text-lg">
-            {isSidebarOpen ? 'menu_open' : 'menu'}
+            {isSidebarOpen ? 'chevron_left' : 'chevron_right'}
           </span>
         </button>
 
