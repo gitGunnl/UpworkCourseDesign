@@ -428,7 +428,7 @@ const CourseLearningPage = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Course Header */}
-      <div className="mb-6 ml-12 lg:ml-0">
+      <div className="mb-6 ml-14 lg:ml-4">
         <div className="flex items-center gap-4 mb-4">
           <Link href="/course/ai" className="text-primary-600 hover:text-primary-700 flex items-center gap-1">
             <span className="material-icons text-sm">arrow_back</span>
