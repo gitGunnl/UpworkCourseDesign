@@ -545,7 +545,7 @@ const CourseLearningPage = () => {
             backdrop-blur-sm
             transition-all duration-200
             rounded-r-lg
-            w-8 h-24
+            w-8 h-20
           `}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
           aria-expanded={isSidebarOpen}
