@@ -500,7 +500,7 @@ const CourseLearningPage = () => {
                         <div 
                           key={lesson.id}
                           className={`p-2 text-sm rounded-md cursor-pointer flex items-center gap-2
-                            ${activeLessonId === lesson.id ? 'bg-primary-50 text-primary-700' : 'hover:bg-gray-50'}
+                            ${activeLessonId === lesson.id ? 'bg-primary-50 text-primary-700 border-l-4 border-primary-600 shadow-sm' : 'hover:bg-gray-50'}
                           `}
                           onClick={() => {
                             setActiveLessonId(lesson.id);
