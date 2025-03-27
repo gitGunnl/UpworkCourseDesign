@@ -29,7 +29,8 @@ const ControlPanelPage = () => {
   };
 
   const pages = [
-    { 
+/*
+   { 
       name: "Landing Page", 
       path: "/landing", 
       description: "Main course listing page. Behavior changes based on login status."
@@ -39,11 +40,7 @@ const ControlPanelPage = () => {
       path: "/auth", 
       description: "Login and registration forms."
     },
-    { 
-      name: "Dummy Panel", 
-      path: "/panel", 
-      description: "Original test panel for login state."
-    },
+*/
     { 
       name: "AI Course Detail", 
       path: "/course/ai", 
