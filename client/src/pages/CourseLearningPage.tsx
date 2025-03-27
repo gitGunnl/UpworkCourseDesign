@@ -533,7 +533,7 @@ const CourseLearningPage = () => {
           className={`
             fixed 
             top-20 
-            ${isSidebarOpen ? 'left-[250px] lg:hidden' : 'left-0'}
+            ${isSidebarOpen ? 'hidden' : 'left-0'}
             z-30
             flex items-center justify-center
             bg-white/80
