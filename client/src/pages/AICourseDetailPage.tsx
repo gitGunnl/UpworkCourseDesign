@@ -11,6 +11,7 @@ const AICourseDetailPage = () => {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
 
   const handleEnroll = () => {
     if (isLoggedIn) {
@@ -19,6 +20,8 @@ const AICourseDetailPage = () => {
         title: "Payment Required",
         description: "This is a demo. In a real app, a payment modal would open.",
       });
+      // Simulate successful enrollment after payment
+      setIsEnrolled(true);
     } else {
       toast({
         title: "Login Required",
@@ -69,21 +72,26 @@ const AICourseDetailPage = () => {
             Created by <span className="text-primary-600 font-medium">Dr. Alan Turing</span> and <span className="text-primary-600 font-medium">Dr. Ada Lovelace</span>
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button size="lg" onClick={handleEnroll}>
-              Enroll Now - $79.99
-            </Button>
-            <Button variant="outline" size="lg">
-              Preview Course
-            </Button>
-            <Button 
-              variant="default" 
-              size="lg"
-              className="bg-green-600 hover:bg-green-700"
-              onClick={handleStartLearning}
-            >
-              <span className="material-icons mr-2">play_circle</span>
-              Start Learning
-            </Button>
+            {!isEnrolled ? (
+              <>
+                <Button size="lg" onClick={handleEnroll}>
+                  Enroll Now - $79.99
+                </Button>
+                <Button variant="outline" size="lg">
+                  Preview Course
+                </Button>
+              </>
+            ) : (
+              <Button 
+                variant="default" 
+                size="lg"
+                className="bg-green-600 hover:bg-green-700"
+                onClick={handleStartLearning}
+              >
+                <span className="material-icons mr-2">play_circle</span>
+                Start Learning
+              </Button>
+            )}
           </div>
         </div>
         <div className="md:w-1/3">
